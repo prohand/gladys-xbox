@@ -6,6 +6,10 @@ uses [semantic versioning](https://semver.org/).
 
 Describe each change under `## [Unreleased]
 
+## [1.0.2] - 2026-10-13
+
+- Maintenance release, no functional change.
+
 ## [1.0.1] - 2026-10-13
 
 ` as you make it. The Release
@@ -36,5 +40,6 @@ the notes of the version's GitHub Release.
 - CI (format, lint, tests on Node 22 and 24, store checks and Docker build on
   pull requests), UI-driven releases, GitHub Releases, Dependabot.
 
-[Unreleased]: https://github.com/prohand/gladys-xbox/compare/v1.0.1...HEAD
+[Unreleased]: https://github.com/prohand/gladys-xbox/compare/v1.0.2...HEAD
+[1.0.2]: https://github.com/prohand/gladys-xbox/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/prohand/gladys-xbox/releases/tag/v1.0.1

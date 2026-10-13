@@ -6,8 +6,8 @@
     "en": "Turn your Xbox consoles on and off, control them and see the game being played.",
     "fr": "Allumez et éteignez vos consoles Xbox, pilotez-les et voyez le jeu en cours."
   },
-  "version": "1.0.1",
-  "docker_image": "ghcr.io/prohand/gladys-xbox:1.0.1",
+  "version": "1.0.2",
+  "docker_image": "ghcr.io/prohand/gladys-xbox:1.0.2",
   "gladys_version": ">=5.1.0",
   "cover_image": "https://raw.githubusercontent.com/prohand/gladys-xbox/main/cover.png",
   "categories": ["multimedia"],
