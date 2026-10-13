@@ -1,0 +1,519 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "Xbox",
+  "description": {
+    "en": "Turn your Xbox consoles on and off, control them and see the game being played.",
+    "fr": "Allumez et éteignez vos consoles Xbox, pilotez-les et voyez le jeu en cours."
+  },
+  "version": "1.0.0",
+  "docker_image": "ghcr.io/prohand/gladys-xbox:1.0.0",
+  "gladys_version": ">=5.1.0",
+  "cover_image": "https://raw.githubusercontent.com/prohand/gladys-xbox/main/cover.png",
+  "categories": ["multimedia"],
+  "transports": ["local", "cloud"],
+  "network_discovery": [
+    {
+      "type": "udp-active-broadcast",
+      "ports": [5050]
+    }
+  ],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "Getting started",
+        "fr": "Pour commencer"
+      },
+      "description": {
+        "en": "Local channel, no account needed: the integration finds the consoles of your network, sees whether they are on and turns them on. Set the console power mode to Sleep (instant-on). Cloud channel, optional: with your Microsoft account it also turns them off, controls the volume, the media and the controller buttons, launches games and shows the game being played.",
+        "fr": "Canal local, sans compte : l'intégration trouve les consoles de votre réseau, voit si elles sont allumées et les allume. Réglez le mode d'alimentation de la console sur Veille (démarrage instantané). Canal cloud, facultatif : avec votre compte Microsoft, elle les éteint aussi, règle le volume, pilote les médias et les boutons de la manette, lance des jeux et affiche le jeu en cours."
+      },
+      "links": [
+        {
+          "url": "https://github.com/prohand/gladys-xbox/blob/main/docs/en.md",
+          "label": {
+            "en": "Integration documentation",
+            "fr": "Documentation de l'intégration"
+          }
+        }
+      ]
+    },
+    {
+      "key": "console_addresses",
+      "type": "string",
+      "label": {
+        "en": "Console IP addresses",
+        "fr": "Adresses IP des consoles"
+      },
+      "description": {
+        "en": "Optional. The consoles are found automatically on the network; list here the ones that are not (another subnet, a router that filters broadcasts), separated by commas.",
+        "fr": "Facultatif. Les consoles sont trouvées automatiquement sur le réseau ; indiquez ici celles qui ne le sont pas (autre sous-réseau, routeur qui filtre la diffusion), séparées par des virgules."
+      },
+      "placeholder": {
+        "en": "e.g. 192.168.1.42",
+        "fr": "ex. 192.168.1.42"
+      },
+      "required": false,
+      "default": ""
+    },
+    {
+      "key": "cloud_intro",
+      "type": "section",
+      "label": {
+        "en": "Cloud channel (optional)",
+        "fr": "Canal cloud (facultatif)"
+      },
+      "description": {
+        "en": "Register an application in the Microsoft Azure portal (personal Microsoft accounts, Web platform), with the redirect URI shown by the Connect button. Copy its application (client) ID and a client secret below, save, then click Connect. On the console, enable Settings > Devices & connections > Remote features.",
+        "fr": "Enregistrez une application dans le portail Microsoft Azure (comptes Microsoft personnels, plateforme Web), avec l'URI de redirection affichée par le bouton Connecter. Copiez ci-dessous son ID d'application (client) et un secret client, enregistrez, puis cliquez sur Connecter. Sur la console, activez Paramètres > Appareils et connexions > Fonctionnalités à distance."
+      },
+      "links": [
+        {
+          "url": "https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade",
+          "label": {
+            "en": "Azure app registrations",
+            "fr": "Inscriptions d'applications Azure"
+          }
+        }
+      ]
+    },
+    {
+      "key": "client_id",
+      "type": "string",
+      "label": {
+        "en": "Application (client) ID",
+        "fr": "ID d'application (client)"
+      },
+      "description": {
+        "en": "The application ID of your Azure app registration.",
+        "fr": "L'ID d'application de votre inscription d'application Azure."
+      },
+      "placeholder": {
+        "en": "00000000-0000-0000-0000-000000000000",
+        "fr": "00000000-0000-0000-0000-000000000000"
+      },
+      "required": false,
+      "default": ""
+    },
+    {
+      "key": "client_secret",
+      "type": "secret",
+      "label": {
+        "en": "Client secret",
+        "fr": "Secret client"
+      },
+      "description": {
+        "en": "The value of a client secret of the same application (Certificates & secrets). Leave it empty for a public client application.",
+        "fr": "La valeur d'un secret client de la même application (Certificats et secrets). Laissez vide pour une application cliente publique."
+      },
+      "required": false
+    },
+    {
+      "key": "microsoft_account",
+      "type": "oauth2",
+      "label": {
+        "en": "Microsoft account",
+        "fr": "Compte Microsoft"
+      },
+      "description": {
+        "en": "Links the Microsoft account that owns the consoles. Only a refresh token is kept, never your password.",
+        "fr": "Relie le compte Microsoft propriétaire des consoles. Seul un jeton de renouvellement est conservé, jamais votre mot de passe."
+      },
+      "required": false
+    },
+    {
+      "key": "poll_frequency",
+      "type": "number",
+      "label": {
+        "en": "Refresh interval (s)",
+        "fr": "Intervalle de rafraîchissement (s)"
+      },
+      "description": {
+        "en": "How often each console is read, in seconds (30 seconds minimum).",
+        "fr": "Fréquence de lecture de chaque console, en secondes (30 secondes minimum)."
+      },
+      "required": false,
+      "default": 60,
+      "min": 30,
+      "max": 3600
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection and search for consoles",
+        "fr": "Tester la connexion et chercher les consoles"
+      },
+      "timeout_seconds": 30
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "title_started",
+      "label": {
+        "en": "A game starts on an Xbox",
+        "fr": "Un jeu démarre sur une Xbox"
+      },
+      "description": {
+        "en": "A game or an app comes to the foreground on a console (cloud channel).",
+        "fr": "Un jeu ou une application passe au premier plan sur une console (canal cloud)."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Console",
+            "fr": "Console"
+          }
+        },
+        {
+          "key": "title_name",
+          "type": "string",
+          "label": {
+            "en": "Game name (exact)",
+            "fr": "Nom du jeu (exact)"
+          },
+          "placeholder": {
+            "en": "Minecraft",
+            "fr": "Minecraft"
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "title_name",
+          "type": "string",
+          "label": {
+            "en": "Game name",
+            "fr": "Nom du jeu"
+          }
+        },
+        {
+          "key": "title_id",
+          "type": "string",
+          "label": {
+            "en": "Game ID",
+            "fr": "Identifiant du jeu"
+          }
+        }
+      ]
+    },
+    {
+      "key": "title_stopped",
+      "label": {
+        "en": "A game stops on an Xbox",
+        "fr": "Un jeu s'arrête sur une Xbox"
+      },
+      "description": {
+        "en": "The game in the foreground is closed, replaced or the console turned off (cloud channel).",
+        "fr": "Le jeu au premier plan est fermé, remplacé, ou la console s'est éteinte (canal cloud)."
+      },
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Console",
+            "fr": "Console"
+          }
+        },
+        {
+          "key": "title_name",
+          "type": "string",
+          "label": {
+            "en": "Game name (exact)",
+            "fr": "Nom du jeu (exact)"
+          },
+          "placeholder": {
+            "en": "Minecraft",
+            "fr": "Minecraft"
+          }
+        }
+      ],
+      "variables": [
+        {
+          "key": "title_name",
+          "type": "string",
+          "label": {
+            "en": "Game name",
+            "fr": "Nom du jeu"
+          }
+        },
+        {
+          "key": "title_id",
+          "type": "string",
+          "label": {
+            "en": "Game ID",
+            "fr": "Identifiant du jeu"
+          }
+        },
+        {
+          "key": "played_minutes",
+          "type": "number",
+          "label": {
+            "en": "Minutes played",
+            "fr": "Minutes de jeu"
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "wake_console",
+      "label": {
+        "en": "Turn on an Xbox and wait",
+        "fr": "Allumer une Xbox et attendre"
+      },
+      "description": {
+        "en": "Turns the console on, then waits until it answers, for the next actions.",
+        "fr": "Allume la console, puis attend qu'elle réponde, pour les actions suivantes."
+      },
+      "timeout_seconds": 120,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Console",
+            "fr": "Console"
+          },
+          "required": true
+        },
+        {
+          "key": "wait_seconds",
+          "type": "number",
+          "label": {
+            "en": "Wait at most (s)",
+            "fr": "Attendre au plus (s)"
+          },
+          "required": false,
+          "default": 60,
+          "min": 0,
+          "max": 100
+        }
+      ],
+      "outputs": [
+        {
+          "key": "awake",
+          "type": "boolean",
+          "label": {
+            "en": "Console on",
+            "fr": "Console allumée"
+          }
+        }
+      ]
+    },
+    {
+      "key": "launch_game",
+      "label": {
+        "en": "Launch a game on an Xbox",
+        "fr": "Lancer un jeu sur une Xbox"
+      },
+      "description": {
+        "en": "Opens a game or an app by its Microsoft Store product ID (cloud channel).",
+        "fr": "Ouvre un jeu ou une application par son ID de produit Microsoft Store (canal cloud)."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Console",
+            "fr": "Console"
+          },
+          "required": true
+        },
+        {
+          "key": "product_id",
+          "type": "string",
+          "label": {
+            "en": "Store product ID",
+            "fr": "ID de produit Store"
+          },
+          "description": {
+            "en": "The 12 characters at the end of the game page address on xbox.com or the Microsoft Store, e.g. 9NBLGGH2JHXJ.",
+            "fr": "Les 12 caractères à la fin de l'adresse de la page du jeu sur xbox.com ou le Microsoft Store, ex. 9NBLGGH2JHXJ."
+          },
+          "placeholder": {
+            "en": "9NBLGGH2JHXJ",
+            "fr": "9NBLGGH2JHXJ"
+          },
+          "required": true
+        }
+      ],
+      "outputs": [
+        {
+          "key": "launched",
+          "type": "boolean",
+          "label": {
+            "en": "Game launched",
+            "fr": "Jeu lancé"
+          }
+        }
+      ]
+    },
+    {
+      "key": "press_button",
+      "label": {
+        "en": "Press a controller button",
+        "fr": "Appuyer sur un bouton de manette"
+      },
+      "description": {
+        "en": "Presses one button of the controller on a console (cloud channel).",
+        "fr": "Appuie sur un bouton de la manette d'une console (canal cloud)."
+      },
+      "timeout_seconds": 15,
+      "fields": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Console",
+            "fr": "Console"
+          },
+          "required": true
+        },
+        {
+          "key": "button",
+          "type": "select",
+          "label": {
+            "en": "Button",
+            "fr": "Bouton"
+          },
+          "required": true,
+          "options": [
+            {
+              "value": "A",
+              "label": {
+                "en": "A",
+                "fr": "A"
+              }
+            },
+            {
+              "value": "B",
+              "label": {
+                "en": "B",
+                "fr": "B"
+              }
+            },
+            {
+              "value": "X",
+              "label": {
+                "en": "X",
+                "fr": "X"
+              }
+            },
+            {
+              "value": "Y",
+              "label": {
+                "en": "Y",
+                "fr": "Y"
+              }
+            },
+            {
+              "value": "Up",
+              "label": {
+                "en": "Up",
+                "fr": "Haut"
+              }
+            },
+            {
+              "value": "Down",
+              "label": {
+                "en": "Down",
+                "fr": "Bas"
+              }
+            },
+            {
+              "value": "Left",
+              "label": {
+                "en": "Left",
+                "fr": "Gauche"
+              }
+            },
+            {
+              "value": "Right",
+              "label": {
+                "en": "Right",
+                "fr": "Droite"
+              }
+            },
+            {
+              "value": "Nexus",
+              "label": {
+                "en": "Xbox button (guide)",
+                "fr": "Bouton Xbox (guide)"
+              }
+            },
+            {
+              "value": "View",
+              "label": {
+                "en": "View",
+                "fr": "Affichage"
+              }
+            },
+            {
+              "value": "Menu",
+              "label": {
+                "en": "Menu",
+                "fr": "Menu"
+              }
+            }
+          ]
+        }
+      ],
+      "outputs": [
+        {
+          "key": "pressed",
+          "type": "boolean",
+          "label": {
+            "en": "Button pressed",
+            "fr": "Bouton appuyé"
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "xbox_console",
+      "label": {
+        "en": "Xbox console",
+        "fr": "Console Xbox"
+      },
+      "description": {
+        "en": "Power, game being played and connection of a console, with quick buttons.",
+        "fr": "Alimentation, jeu en cours et connexion d'une console, avec boutons rapides."
+      },
+      "icon": "monitor",
+      "settings": [
+        {
+          "key": "device",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Console",
+            "fr": "Console"
+          },
+          "required": false,
+          "description": {
+            "en": "Leave empty to show the first console.",
+            "fr": "Laissez vide pour afficher la première console."
+          }
+        }
+      ],
+      "action_timeout_seconds": 15
+    }
+  ]
+}
