@@ -24,29 +24,60 @@ export const CONSOLE_WIDGET = 'xbox_console';
 export const CONSOLE_ACTIONS = { HOME: 'home', PLAY_PAUSE: 'play_pause' };
 
 const POWER_STATUS = {
-  on: { value: { en: 'On', fr: 'Allumée' }, color: WIDGET_COLORS.SUCCESS },
-  standby: { value: { en: 'Standby', fr: 'En veille' }, color: WIDGET_COLORS.WARNING },
-  off: { value: { en: 'Off', fr: 'Éteinte' }, color: WIDGET_COLORS.NEUTRAL },
-  unknown: { value: { en: 'Unknown', fr: 'Inconnu' }, color: WIDGET_COLORS.NEUTRAL },
+  on: {
+    value: { en: 'On', fr: 'Allumée', de: 'Ein', es: 'Encendida' },
+    color: WIDGET_COLORS.SUCCESS,
+  },
+  standby: {
+    value: { en: 'Standby', fr: 'En veille', de: 'Standby', es: 'En espera' },
+    color: WIDGET_COLORS.WARNING,
+  },
+  off: {
+    value: { en: 'Off', fr: 'Éteinte', de: 'Aus', es: 'Apagada' },
+    color: WIDGET_COLORS.NEUTRAL,
+  },
+  unknown: {
+    value: { en: 'Unknown', fr: 'Inconnu', de: 'Unbekannt', es: 'Desconocido' },
+    color: WIDGET_COLORS.NEUTRAL,
+  },
 };
 
 const TRANSPORT_STATUS = {
-  [DEVICE_TRANSPORTS.LOCAL]: { value: { en: 'Local', fr: 'Locale' }, color: WIDGET_COLORS.SUCCESS },
-  [DEVICE_TRANSPORTS.CLOUD]: { value: { en: 'Cloud', fr: 'Cloud' }, color: WIDGET_COLORS.INFO },
+  [DEVICE_TRANSPORTS.LOCAL]: {
+    value: { en: 'Local', fr: 'Locale', de: 'Lokal', es: 'Local' },
+    color: WIDGET_COLORS.SUCCESS,
+  },
+  [DEVICE_TRANSPORTS.CLOUD]: {
+    value: { en: 'Cloud', fr: 'Cloud', de: 'Cloud', es: 'Nube' },
+    color: WIDGET_COLORS.INFO,
+  },
   [DEVICE_TRANSPORTS.UNREACHABLE]: {
-    value: { en: 'Unreachable', fr: 'Injoignable' },
+    value: { en: 'Unreachable', fr: 'Injoignable', de: 'Nicht erreichbar', es: 'Inaccesible' },
     color: WIDGET_COLORS.DANGER,
   },
 };
 
 function transportStatus(transport) {
   if (!transport) {
-    return { value: { en: 'Not read yet', fr: 'Pas encore lue' }, color: WIDGET_COLORS.NEUTRAL };
+    return {
+      value: {
+        en: 'Not read yet',
+        fr: 'Pas encore lue',
+        de: 'Noch nicht gelesen',
+        es: 'Aún no leída',
+      },
+      color: WIDGET_COLORS.NEUTRAL,
+    };
   }
   const { value, color } = TRANSPORT_STATUS[transport.transport];
   if (transport.degraded) {
     return {
-      value: { en: `${value.en} (degraded)`, fr: `${value.fr} (dégradée)` },
+      value: {
+        en: `${value.en} (degraded)`,
+        fr: `${value.fr} (dégradée)`,
+        de: `${value.de} (beeinträchtigt)`,
+        es: `${value.es} (degradada)`,
+      },
       color: WIDGET_COLORS.WARNING,
     };
   }
@@ -77,8 +108,10 @@ export const WIDGETS = {
               type: 'text',
               variant: 'body',
               text: {
-                en: 'No console yet: run "Test the connection" in the integration, then create the console in the Discovery tab.',
+                en: 'No console yet: run "Test the connection" in the integration, then create the console in the Discover tab.',
                 fr: "Aucune console pour l'instant : lancez « Tester la connexion » dans l'intégration, puis créez la console dans l'onglet Découverte.",
+                de: 'Noch keine Konsole: Führe in der Integration „Verbindung testen“ aus und erstelle die Konsole dann im Tab „Entdecken“.',
+                es: 'Todavía no hay ninguna consola: ejecute «Probar la conexión» en la integración y, después, cree la consola en la pestaña «Descubrir».',
               },
             },
           ],
@@ -96,7 +129,7 @@ export const WIDGETS = {
         // the power switch of the TV widget.
         buttons.push({
           type: 'button',
-          label: { en: 'Turn on', fr: 'Allumer' },
+          label: { en: 'Turn on', fr: 'Allumer', de: 'Einschalten', es: 'Encender' },
           icon: 'power',
           style: 'primary',
           device_feature: ids.feature(FEATURES.POWER),
@@ -106,21 +139,26 @@ export const WIDGETS = {
         buttons.push(
           {
             type: 'button',
-            label: { en: 'Home', fr: 'Accueil' },
+            label: { en: 'Home', fr: 'Accueil', de: 'Startseite', es: 'Inicio' },
             icon: 'home',
             style: 'secondary',
             action: { key: CONSOLE_ACTIONS.HOME, params: { device: ids.device } },
           },
           {
             type: 'button',
-            label: { en: 'Play / pause', fr: 'Lecture / pause' },
+            label: {
+              en: 'Play / pause',
+              fr: 'Lecture / pause',
+              de: 'Wiedergabe / Pause',
+              es: 'Reproducir / pausa',
+            },
             icon: 'play',
             style: 'secondary',
             action: { key: CONSOLE_ACTIONS.PLAY_PAUSE, params: { device: ids.device } },
           },
           {
             type: 'button',
-            label: { en: 'Turn off', fr: 'Éteindre' },
+            label: { en: 'Turn off', fr: 'Éteindre', de: 'Ausschalten', es: 'Apagar' },
             icon: 'power',
             style: 'danger',
             device_feature: ids.feature(FEATURES.POWER),
@@ -132,20 +170,24 @@ export const WIDGETS = {
 
       const items = [
         {
-          label: { en: 'Console', fr: 'Console' },
+          label: { en: 'Console', fr: 'Console', de: 'Konsole', es: 'Consola' },
           icon: 'monitor',
           value: short(console.name),
           color: WIDGET_COLORS.NEUTRAL,
         },
-        { label: { en: 'Power', fr: 'Alimentation' }, icon: 'power', ...POWER_STATUS[powerKey] },
         {
-          label: { en: 'Playing', fr: 'En cours' },
+          label: { en: 'Power', fr: 'Alimentation', de: 'Betrieb', es: 'Alimentación' },
+          icon: 'power',
+          ...POWER_STATUS[powerKey],
+        },
+        {
+          label: { en: 'Playing', fr: 'En cours', de: 'Läuft', es: 'En curso' },
           icon: 'play-circle',
           value: console.title ? short(console.title.name) : '-',
           color: console.title ? WIDGET_COLORS.PRIMARY : WIDGET_COLORS.NEUTRAL,
         },
         {
-          label: { en: 'Connection', fr: 'Connexion' },
+          label: { en: 'Connection', fr: 'Connexion', de: 'Verbindung', es: 'Conexión' },
           icon: 'wifi',
           ...transportStatus(console.transport),
         },
@@ -153,7 +195,7 @@ export const WIDGETS = {
       const gamertag = service.gamertag;
       if (gamertag) {
         items.push({
-          label: { en: 'Account', fr: 'Compte' },
+          label: { en: 'Account', fr: 'Compte', de: 'Konto', es: 'Cuenta' },
           icon: 'user',
           value: short(gamertag),
           color: WIDGET_COLORS.INFO,
@@ -178,11 +220,21 @@ export const WIDGETS = {
       }
       if (actionKey === CONSOLE_ACTIONS.HOME) {
         await service.goHome(console);
-        return { en: 'Back to the home screen', fr: "Retour à l'écran d'accueil" };
+        return {
+          en: 'Back to the home screen',
+          fr: "Retour à l'écran d'accueil",
+          de: 'Zurück zum Startbildschirm',
+          es: 'De vuelta a la pantalla de inicio',
+        };
       }
       if (actionKey === CONSOLE_ACTIONS.PLAY_PAUSE) {
         await service.playPause(console);
-        return { en: 'Play / pause sent', fr: 'Lecture / pause envoyée' };
+        return {
+          en: 'Play / pause sent',
+          fr: 'Lecture / pause envoyée',
+          de: 'Wiedergabe / Pause gesendet',
+          es: 'Reproducir / pausa enviado',
+        };
       }
       // Throwing acks the action as failed: the message reaches the user.
       throw new Error(`Unknown widget action: ${actionKey}`);

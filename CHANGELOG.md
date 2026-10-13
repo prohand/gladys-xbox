@@ -4,19 +4,26 @@ All notable changes to this integration are documented in this file. The format
 follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 uses [semantic versioning](https://semver.org/).
 
-Describe each change under `## [Unreleased]
+Describe each change under `## [Unreleased]` as you make it. The Release
+workflow moves that section under the version it ships, and the section becomes
+the notes of the version's GitHub Release.
+
+## [Unreleased]
+
+### Added
+
+- German and Spanish translations (configuration screen, messages, widgets,
+  documentation).
+
+### Fixed
+
+- The English documentation names the Gladys screens as the Gladys interface does.
 
 ## [1.0.2] - 2026-10-13
 
 - Maintenance release, no functional change.
 
 ## [1.0.1] - 2026-10-13
-
-` as you make it. The Release
-workflow moves that section under the version it ships, and the section becomes
-the notes of the version's GitHub Release.
-
-## [Unreleased]
 
 ### Added
 

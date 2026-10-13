@@ -6,7 +6,8 @@ controls **Xbox consoles** (Xbox One, Xbox Series X|S), built from the official
 with the SDK
 [`@gladysassistant/integration-sdk`](https://github.com/GladysAssistant/integration-sdk-js).
 
-User documentation: [English](docs/en.md) · [Français](docs/fr.md).
+User documentation: [English](docs/en.md) · [Français](docs/fr.md) · [Deutsch](docs/de.md) ·
+[Español](docs/es.md).
 
 ## Features
 
@@ -60,7 +61,7 @@ not find).
 │     ├─ local.js                    # UDP transport + local channel
 │     ├─ auth.js                     # Microsoft + Xbox Live tokens
 │     └─ cloud.js                    # console control + presence services
-├─ docs/en.md, docs/fr.md            # user documentation (re-hosted by Gladys)
+├─ docs/{en,fr,de,es}.md            # user documentation (re-hosted by Gladys)
 ├─ test/                             # node --test, fake Gladys + fake network
 ├─ gladys-assistant-integration.json # manifest
 ├─ Dockerfile                        # Node 24 Alpine, read-only rootfs ready

@@ -53,6 +53,8 @@ const MESSAGES = {
   NO_LOCAL_ADDRESS: {
     en: 'No local address: the LAN discovery did not find this console, the cloud serves it.',
     fr: "Pas d'adresse locale : la recherche sur le réseau n'a pas trouvé cette console, le cloud la sert.",
+    de: 'Keine lokale Adresse: Die Netzwerksuche hat diese Konsole nicht gefunden, die Cloud übernimmt sie.',
+    es: 'Sin dirección local: la búsqueda en la red no ha encontrado esta consola; la nube se encarga de ella.',
   },
 };
 
@@ -466,6 +468,8 @@ export function createXboxService({ gladys, local, auth, cloud, now = Date.now, 
         await gladys.setConnectionStatus(false, {
           en: 'Microsoft account not linked: click Connect.',
           fr: 'Compte Microsoft non relié : cliquez sur Connecter.',
+          de: 'Microsoft-Konto nicht verknüpft: Klicke auf Verbinden.',
+          es: 'Cuenta Microsoft no vinculada: pulse Conectar.',
         });
         return;
       }
@@ -480,10 +484,14 @@ export function createXboxService({ gladys, local, auth, cloud, now = Date.now, 
             ? {
                 en: 'The Microsoft account link expired: click Connect again.',
                 fr: 'Le lien avec le compte Microsoft a expiré : cliquez à nouveau sur Connecter.',
+                de: 'Die Verknüpfung mit dem Microsoft-Konto ist abgelaufen: Klicke erneut auf Verbinden.',
+                es: 'El vínculo con la cuenta Microsoft ha caducado: pulse Conectar de nuevo.',
               }
             : {
                 en: 'Xbox Live is unreachable, the local channel still works.',
                 fr: 'Xbox Live est injoignable, le canal local fonctionne toujours.',
+                de: 'Xbox Live ist nicht erreichbar, der lokale Kanal funktioniert weiterhin.',
+                es: 'Xbox Live no está accesible; el canal local sigue funcionando.',
               },
         );
       }
@@ -494,39 +502,63 @@ export function createXboxService({ gladys, local, auth, cloud, now = Date.now, 
       const { local: onLan, cloud: inAccount, cloudError } = await service.discover();
       await gladys.publishDiscoveredDevices(service.buildDevices());
 
-      const lines = { en: [], fr: [] };
+      // One sentence per check, in every language of the answer.
+      const lines = [];
       if (onLan.length > 0) {
         const list = onLan.map((c) => `${c.name} (${c.address})`).join(', ');
-        lines.en.push(`LAN: ${onLan.length} console(s) answered: ${list}.`);
-        lines.fr.push(`Réseau local : ${onLan.length} console(s) ont répondu : ${list}.`);
+        const n = onLan.length;
+        lines.push({
+          en: `LAN: ${n} console(s) answered: ${list}.`,
+          fr: `Réseau local : ${n} console(s) ont répondu : ${list}.`,
+          de: `Lokales Netzwerk: ${n} Konsole(n) haben geantwortet: ${list}.`,
+          es: `Red local: ${n} consola(s) han respondido: ${list}.`,
+        });
       } else {
-        lines.en.push(
-          'LAN: no console answered. It must be on, or in "Sleep" (instant-on) power mode.',
-        );
-        lines.fr.push(
-          'Réseau local : aucune console n\'a répondu. Elle doit être allumée, ou en mode d\'alimentation "Veille" (démarrage instantané).',
-        );
+        lines.push({
+          en: 'LAN: no console answered. It must be on, or in "Sleep" (instant-on) power mode.',
+          fr: 'Réseau local : aucune console n\'a répondu. Elle doit être allumée, ou en mode d\'alimentation "Veille" (démarrage instantané).',
+          de: 'Lokales Netzwerk: Keine Konsole hat geantwortet. Sie muss eingeschaltet sein oder sich im Energiemodus „Ruhemodus“ (Sofort-Ein) befinden.',
+          es: 'Red local: ninguna consola ha respondido. Debe estar encendida o en el modo de energía «Suspensión» (inicio instantáneo).',
+        });
       }
 
       if (!auth.hasClient) {
-        lines.en.push('Cloud: not configured (local only).');
-        lines.fr.push('Cloud : non configuré (local uniquement).');
+        lines.push({
+          en: 'Cloud: not configured (local only).',
+          fr: 'Cloud : non configuré (local uniquement).',
+          de: 'Cloud: nicht konfiguriert (nur lokal).',
+          es: 'Nube: no configurada (solo local).',
+        });
       } else if (!auth.isLinked) {
-        lines.en.push('Cloud: Microsoft account not linked, click Connect.');
-        lines.fr.push('Cloud : compte Microsoft non relié, cliquez sur Connecter.');
+        lines.push({
+          en: 'Cloud: Microsoft account not linked, click Connect.',
+          fr: 'Cloud : compte Microsoft non relié, cliquez sur Connecter.',
+          de: 'Cloud: Microsoft-Konto nicht verknüpft, klicke auf Verbinden.',
+          es: 'Nube: cuenta Microsoft no vinculada, pulse Conectar.',
+        });
       } else if (cloudError) {
-        lines.en.push(`Cloud: error, ${cloudError.message}`);
-        lines.fr.push(`Cloud : erreur, ${cloudError.message}`);
+        const reason = cloudError.message;
+        lines.push({
+          en: `Cloud: error, ${reason}`,
+          fr: `Cloud : erreur, ${reason}`,
+          de: `Cloud: Fehler, ${reason}`,
+          es: `Nube: error, ${reason}`,
+        });
       } else {
         const who = auth.identity?.gamertag ?? '?';
         const list = inAccount.map((c) => c.name).join(', ') || '-';
-        lines.en.push(`Cloud: signed in as ${who}, ${inAccount.length} console(s): ${list}.`);
-        lines.fr.push(
-          `Cloud : connecté en tant que ${who}, ${inAccount.length} console(s) : ${list}.`,
-        );
+        const n = inAccount.length;
+        lines.push({
+          en: `Cloud: signed in as ${who}, ${n} console(s): ${list}.`,
+          fr: `Cloud : connecté en tant que ${who}, ${n} console(s) : ${list}.`,
+          de: `Cloud: angemeldet als ${who}, ${n} Konsole(n): ${list}.`,
+          es: `Nube: sesión iniciada como ${who}, ${n} consola(s): ${list}.`,
+        });
       }
       await service.reportConnectionStatus();
-      return { en: lines.en.join(' '), fr: lines.fr.join(' ') };
+      return Object.fromEntries(
+        Object.keys(lines[0]).map((lang) => [lang, lines.map((line) => line[lang]).join(' ')]),
+      );
     },
 
     /** Transport badge of every console, for publishTransports. */

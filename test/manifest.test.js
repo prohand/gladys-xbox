@@ -194,10 +194,39 @@ test('the catalog description holds 10 to 100 characters per language', () => {
   }
 });
 
-test('every text is a multi-language object, in English and French', () => {
+// Every text a user reads is offered in the four languages of the Gladys UI.
+const LANGUAGES = ['en', 'fr', 'de', 'es'];
+
+test('every text is a multi-language object, in English, French, German and Spanish', () => {
   for (const { path, value } of texts(manifest)) {
     assert.equal(typeof value, 'object', `${path} must be a multi-language object`);
-    assert.ok(value.en, `${path} needs an English text`);
-    assert.ok(value.fr, `${path} needs a French text`);
+    for (const lang of LANGUAGES) {
+      assert.ok(value[lang], `${path} needs a text in "${lang}"`);
+    }
+  }
+});
+
+test('the catalog description is offered in every language', () => {
+  assert.deepEqual(Object.keys(manifest.description).sort(), [...LANGUAGES].sort());
+});
+
+test('widget labels hold 3 to 30 characters and descriptions 100, per language', () => {
+  for (const widget of manifest.widgets) {
+    for (const lang of LANGUAGES) {
+      const label = widget.label[lang];
+      assert.ok(label.length >= 3 && label.length <= 30, `${widget.key}.label.${lang}: ${label}`);
+      assert.ok(widget.description[lang].length <= 100, `${widget.key}.description.${lang}`);
+    }
+  }
+});
+
+test('section texts hold 1000 characters at most, per language', () => {
+  for (const section of manifest.config_schema.filter((f) => f.type === 'section')) {
+    for (const lang of LANGUAGES) {
+      assert.ok(
+        (section.description?.[lang] ?? '').length <= 1000,
+        `${section.key}.description.${lang}`,
+      );
+    }
   }
 });

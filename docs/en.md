@@ -12,10 +12,10 @@ scenes and on the dashboard.
 | **Cloud** (Xbox Live)    | a Microsoft account | everything above, plus: turn off, volume, mute, media keys, controller buttons, launch a game, game played |
 
 You can use the local channel alone, the cloud channel alone, or both. With
-both, the **Prefer the local connection** switch of the configuration picks the
-one asked first; the other one takes over when the first does not answer. The
-badge of each console says which channel served it last (orange dot: the cloud
-serves a console the local search did not find).
+both, the **Prefer the local (LAN) connection when available** switch of the
+configuration picks the one asked first; the other one takes over when the first
+does not answer. The badge of each console says which channel served it last
+(orange dot: the cloud serves a console the local search did not find).
 
 ## Prepare the console
 
@@ -30,7 +30,7 @@ serves a console the local search did not find).
 ## Local channel
 
 Nothing to fill in: open the integration, click **Test the connection and search
-for consoles**, then create your consoles in the **Discovery** tab.
+for consoles**, then create your consoles in the **Discover** tab.
 
 The search asks Gladys to send a SmartGlass discovery on UDP port 5050 of your
 network (Gladys shows this permission when you install the integration). A
@@ -105,8 +105,8 @@ Actions:
 - **Press a controller button**: A, B, X, Y, arrows, Xbox button, View, Menu.
   Output `pressed`.
 
-The power, mute and keys are also available in the standard "Control a device"
-action, and the power state in the standard "Device state" trigger.
+The power, mute and keys are also available in the standard "Set device value"
+action, and the power state in the standard "Device state change" trigger.
 
 The game being played comes from the **presence of your Xbox Live account**, not
 from one console: with several consoles on at the same time, they all show the
@@ -114,9 +114,10 @@ game of the linked account.
 
 ## Dashboard widget
 
-Add the **Xbox console** widget and pick a console (the first one by default):
-power, game being played, connection, account, and quick buttons — turn on, and
-with the cloud channel: home, play/pause, turn off.
+In **Dashboard → Edit → New widget**, add the **Xbox console** widget and pick a
+console (the first one by default): power, game being played, connection,
+account, and quick buttons — turn on, and with the cloud channel: home,
+play/pause, turn off.
 
 ## Troubleshooting
 
@@ -128,5 +129,5 @@ with the cloud channel: home, play/pause, turn off.
 - **"needs the cloud channel"**: turning off and the keys need the Microsoft
   account.
 - **The commands do nothing**: enable the remote features on the console.
-- **Logs**: Gladys → Integrations → Xbox → logs. They never contain your tokens
-  nor your secret.
+- **Logs**: Gladys → Integrations → Xbox → **Logs** tab. They never contain your
+  tokens nor your secret.

@@ -1,0 +1,144 @@
+# Xbox-Integration
+
+Steuere deine Xbox-Konsolen (Xbox One, Xbox Series X|S) über Gladys: Schalte sie
+ein und aus, sieh, ob sie eingeschaltet sind und welches Spiel läuft, und
+verwende sie in Szenen und auf dem Dashboard.
+
+## Zwei Kanäle
+
+| Kanal                     | Voraussetzung       | Funktionen                                                                                                                          |
+| ------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **Lokal** (dein Netzwerk) | nichts              | findet die Konsolen, erkennt, ob sie eingeschaltet sind, schaltet sie ein                                                           |
+| **Cloud** (Xbox Live)     | ein Microsoft-Konto | alles oben Genannte, dazu: ausschalten, Lautstärke, Stummschaltung, Medientasten, Controller-Tasten, Spiel starten, laufendes Spiel |
+
+Du kannst den lokalen Kanal allein, den Cloud-Kanal allein oder beide nutzen.
+Mit beiden wählt der Schalter **Lokale (LAN) Verbindung bevorzugen, wenn
+verfügbar** der Konfiguration den Kanal, der zuerst gefragt wird; der andere
+übernimmt, wenn der erste nicht antwortet. Das Abzeichen jeder Konsole zeigt,
+welcher Kanal sie zuletzt bedient hat (oranger Punkt: Die Cloud bedient eine
+Konsole, die die lokale Suche nicht gefunden hat).
+
+## Die Konsole vorbereiten
+
+1. **Energiemodus**: Einstellungen → Allgemein → Energieoptionen →
+   **Ruhemodus** (Xbox Series) oder **Sofort-Ein** (Xbox One). Im Modus
+   „Herunterfahren (Energiesparmodus)“ kann die Konsole über das Netzwerk nicht
+   eingeschaltet werden, über keinen Kanal.
+2. **Remotefunktionen** (Cloud-Kanal): Einstellungen → Geräte und Verbindungen →
+   Remotefunktionen → **Remotefunktionen aktivieren** ankreuzen.
+3. Wähle im selben Bildschirm unter **Xbox-App-Einstellungen** die Option
+   **Verbindungen von jedem Gerät zulassen**: Das hilft dem lokalen Kanal.
+
+## Lokaler Kanal
+
+Nichts auszufüllen: Öffne die Integration, klicke auf **Verbindung testen und
+Konsolen suchen** und erstelle dann deine Konsolen im Tab **Entdecken**.
+
+Die Suche bittet Gladys, eine SmartGlass-Erkennung auf dem UDP-Port 5050 deines
+Netzwerks zu senden (Gladys zeigt diese Berechtigung bei der Installation der
+Integration an). Eine Konsole in einem anderen Subnetz oder hinter einem Router,
+der Broadcasts filtert, wird auf diese Weise nicht gefunden: Gib ihre IP-Adresse
+unter **IP-Adressen der Konsolen** ein (mehrere Adressen durch Kommas getrennt).
+Gib der Konsole in deinem Router eine feste Adresse, damit sie sich nicht
+ändert.
+
+## Cloud-Kanal
+
+Der Cloud-Kanal meldet sich mit deinem Microsoft-Konto bei Xbox Live an, über
+eine Anwendung, die **du** bei Microsoft registrierst (kostenlos). Gladys sieht
+dein Passwort nie.
+
+1. Öffne das [Azure-Portal](https://portal.azure.com) →
+   **App-Registrierungen** → **Neue Registrierung**.
+   - Name: `Gladys Xbox` (beliebig).
+   - Unterstützte Kontotypen: **Nur persönliche Microsoft-Konten** (oder
+     „Konten in einem beliebigen Organisationsverzeichnis und persönliche
+     Microsoft-Konten“).
+   - Umleitungs-URI: Plattform **Web**, Adresse: die der Gladys-Schaltfläche
+     **Verbinden** (siehe unten).
+2. Kopiere in der Anwendung die **Anwendungs-ID (Client)**.
+3. **Zertifikate & Geheimnisse** → **Neuer geheimer Clientschlüssel** → kopiere
+   seinen **Wert** (nicht seine ID: Der Wert wird nur einmal angezeigt).
+4. Füge in Gladys die beiden Werte unter **Anwendungs-ID (Client)** und
+   **Geheimer Clientschlüssel** ein, speichere und klicke dann neben
+   **Microsoft-Konto** auf **Verbinden** und melde dich an.
+
+**Welcher Umleitungs-URI?** Die Integration schreibt ihn in ihre Protokolle,
+wenn du auf Verbinden klickst (`Redirect URI to register in Azure: …`), und
+Microsoft zeigt ihn auf der Fehlerseite an, wenn er noch nicht registriert ist.
+Microsoft akzeptiert nur eine **https**-Adresse (oder `http://localhost`):
+Öffne Gladys über seine https-Adresse (Gladys Plus, dein Reverse Proxy),
+wenn du auf Verbinden klickst.
+
+Die Verknüpfung bleibt bestehen: Die Integration erneuert ihren Zugriff selbst.
+Wenn die Konfiguration „Die Verknüpfung mit dem Microsoft-Konto ist abgelaufen“
+anzeigt, klicke erneut auf **Verbinden**.
+
+## Die Konsole in Gladys
+
+Jede Konsole ist ein Gerät vom Typ Fernseher:
+
+- **Ein/Aus**: Ein: lokales Paket oder Cloud, je nach Präferenz. Aus: nur Cloud.
+- **Stumm**, **Lauter / Leiser**, **Wiedergabe**, **Pause**, **Zurück**,
+  **Weiter**, die Pfeiltasten, **A (Auswählen)**, **B (Zurück)**, **Menü**,
+  **Ansicht**, **Xbox-Taste (Guide)**: nur Cloud.
+- **Laufendes Spiel**: der Name des Spiels oder der App im Vordergrund, `-` auf
+  dem Startbildschirm oder wenn die Konsole aus ist (nur Cloud).
+
+Die Konsole wird standardmäßig alle 60 Sekunden gelesen
+(**Aktualisierungsintervall**, mindestens 30 Sekunden) und erneut innerhalb von
+30 Sekunden nach einem Befehl.
+
+## Szenen
+
+Auslöser:
+
+- **Ein Spiel startet auf einer Xbox**: Filter auf die Konsole und den exakten
+  Spielnamen. Variablen: `title_name`, `title_id`.
+- **Ein Spiel endet auf einer Xbox**: dieselben Filter. Variablen: `title_name`,
+  `title_id`, `played_minutes`.
+
+Verwende sie in den folgenden Aktionen als
+`{{triggerEvent.data.title_name}}`, z. B. um „Lucas hat 95 Minuten Minecraft
+gespielt“ als Nachricht zu senden.
+
+Aktionen:
+
+- **Eine Xbox einschalten und warten**: schaltet die Konsole ein und wartet
+  dann, bis sie antwortet (bis zu 100 s). Ausgabe `awake` (true / false), um die
+  nächsten Aktionen davon abhängig zu machen.
+- **Ein Spiel auf einer Xbox starten**: über seine Produkt-ID im Microsoft
+  Store, die 12 Zeichen am Ende der Adresse der Spielseite auf xbox.com, z. B.
+  `xbox.com/…/games/store/<name>/9NBLGGH2JHXJ`. Ausgabe `launched`.
+- **Eine Controller-Taste drücken**: A, B, X, Y, Pfeiltasten, Xbox-Taste,
+  Ansicht, Menü. Ausgabe `pressed`.
+
+Ein/Aus, Stummschaltung und Tasten sind auch in der Standardaktion „Gerätewert
+setzen“ verfügbar, und der Einschaltzustand im Standardauslöser „Änderung von
+Gerätestatus“.
+
+Das laufende Spiel stammt aus der **Anwesenheit deines Xbox-Live-Kontos**, nicht
+von einer einzelnen Konsole: Sind mehrere Konsolen gleichzeitig eingeschaltet,
+zeigen alle das Spiel des verknüpften Kontos.
+
+## Dashboard-Widget
+
+Füge unter **Dashboard → Bearbeiten → Neues Widget** das Widget **Xbox-Konsole**
+hinzu und wähle eine Konsole (standardmäßig die erste): Betrieb, laufendes
+Spiel, Verbindung, Konto und Schnelltasten — Einschalten, und mit dem
+Cloud-Kanal: Startseite, Wiedergabe/Pause, Ausschalten.
+
+## Fehlerbehebung
+
+- **Keine Konsole gefunden**: Ist sie eingeschaltet oder im Ruhemodus /
+  Sofort-Ein? Ist Gladys im selben Netzwerk? Versuche, ihre IP-Adresse
+  einzugeben.
+- **Die Konsole schaltet sich nicht ein**: Prüfe den Energiemodus
+  (Ruhemodus / Sofort-Ein). Auf dem lokalen Kanal muss die Konsole mindestens
+  einmal geantwortet haben, damit ihre Live-ID bekannt ist.
+- **„needs the cloud channel“**: Ausschalten und die Tasten benötigen das
+  Microsoft-Konto.
+- **Die Befehle bewirken nichts**: Aktiviere die Remotefunktionen auf der
+  Konsole.
+- **Protokolle**: Gladys → Integrationen → Xbox → Tab **Protokolle**. Sie
+  enthalten nie deine Tokens oder deinen geheimen Schlüssel.
