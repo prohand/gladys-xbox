@@ -4,7 +4,9 @@
   "name": "Xbox",
   "description": {
     "en": "Turn your Xbox consoles on and off, control them and see the game being played.",
-    "fr": "Allumez et éteignez vos consoles Xbox, pilotez-les et voyez le jeu en cours."
+    "fr": "Allumez et éteignez vos consoles Xbox, pilotez-les et voyez le jeu en cours.",
+    "de": "Schalten Sie Ihre Xbox-Konsolen ein und aus, steuern Sie sie und sehen Sie das laufende Spiel.",
+    "es": "Encienda y apague sus consolas Xbox, contrólelas y vea el juego en curso."
   },
   "version": "1.0.2",
   "docker_image": "ghcr.io/prohand/gladys-xbox:1.0.2",
@@ -24,18 +26,24 @@
       "type": "section",
       "label": {
         "en": "Getting started",
-        "fr": "Pour commencer"
+        "fr": "Pour commencer",
+        "de": "Erste Schritte",
+        "es": "Primeros pasos"
       },
       "description": {
         "en": "Local channel, no account needed: the integration finds the consoles of your network, sees whether they are on and turns them on. Set the console power mode to Sleep (instant-on). Cloud channel, optional: with your Microsoft account it also turns them off, controls the volume, the media and the controller buttons, launches games and shows the game being played.",
-        "fr": "Canal local, sans compte : l'intégration trouve les consoles de votre réseau, voit si elles sont allumées et les allume. Réglez le mode d'alimentation de la console sur Veille (démarrage instantané). Canal cloud, facultatif : avec votre compte Microsoft, elle les éteint aussi, règle le volume, pilote les médias et les boutons de la manette, lance des jeux et affiche le jeu en cours."
+        "fr": "Canal local, sans compte : l'intégration trouve les consoles de votre réseau, voit si elles sont allumées et les allume. Réglez le mode d'alimentation de la console sur Veille (démarrage instantané). Canal cloud, facultatif : avec votre compte Microsoft, elle les éteint aussi, règle le volume, pilote les médias et les boutons de la manette, lance des jeux et affiche le jeu en cours.",
+        "de": "Lokaler Kanal, ohne Konto: Die Integration findet die Konsolen in Ihrem Netzwerk, erkennt, ob sie eingeschaltet sind, und schaltet sie ein. Stellen Sie den Energiemodus der Konsole auf Ruhemodus (Sofort-Ein). Cloud-Kanal, optional: Mit Ihrem Microsoft-Konto schaltet sie sie auch aus, regelt die Lautstärke, steuert die Medien und die Controller-Tasten, startet Spiele und zeigt das laufende Spiel an.",
+        "es": "Canal local, sin cuenta: la integración encuentra las consolas de su red, detecta si están encendidas y las enciende. Configure el modo de energía de la consola en Suspensión (inicio instantáneo). Canal en la nube, opcional: con su cuenta Microsoft también las apaga, ajusta el volumen, controla la multimedia y los botones del mando, inicia juegos y muestra el juego en curso."
       },
       "links": [
         {
           "url": "https://github.com/prohand/gladys-xbox/blob/main/docs/en.md",
           "label": {
             "en": "Integration documentation",
-            "fr": "Documentation de l'intégration"
+            "fr": "Documentation de l'intégration",
+            "de": "Dokumentation der Integration",
+            "es": "Documentación de la integración"
           }
         }
       ]
@@ -45,15 +53,21 @@
       "type": "string",
       "label": {
         "en": "Console IP addresses",
-        "fr": "Adresses IP des consoles"
+        "fr": "Adresses IP des consoles",
+        "de": "IP-Adressen der Konsolen",
+        "es": "Direcciones IP de las consolas"
       },
       "description": {
         "en": "Optional. The consoles are found automatically on the network; list here the ones that are not (another subnet, a router that filters broadcasts), separated by commas.",
-        "fr": "Facultatif. Les consoles sont trouvées automatiquement sur le réseau ; indiquez ici celles qui ne le sont pas (autre sous-réseau, routeur qui filtre la diffusion), séparées par des virgules."
+        "fr": "Facultatif. Les consoles sont trouvées automatiquement sur le réseau ; indiquez ici celles qui ne le sont pas (autre sous-réseau, routeur qui filtre la diffusion), séparées par des virgules.",
+        "de": "Optional. Die Konsolen werden automatisch im Netzwerk gefunden; geben Sie hier diejenigen an, die nicht gefunden werden (anderes Subnetz, Router, der Broadcasts filtert), durch Kommas getrennt.",
+        "es": "Opcional. Las consolas se encuentran automáticamente en la red; indique aquí las que no se encuentran (otra subred, un router que filtra la difusión), separadas por comas."
       },
       "placeholder": {
         "en": "e.g. 192.168.1.42",
-        "fr": "ex. 192.168.1.42"
+        "fr": "ex. 192.168.1.42",
+        "de": "z. B. 192.168.1.42",
+        "es": "p. ej. 192.168.1.42"
       },
       "required": false,
       "default": ""
@@ -63,18 +77,24 @@
       "type": "section",
       "label": {
         "en": "Cloud channel (optional)",
-        "fr": "Canal cloud (facultatif)"
+        "fr": "Canal cloud (facultatif)",
+        "de": "Cloud-Kanal (optional)",
+        "es": "Canal en la nube (opcional)"
       },
       "description": {
         "en": "Register an application in the Microsoft Azure portal (personal Microsoft accounts, Web platform), with the redirect URI shown by the Connect button. Copy its application (client) ID and a client secret below, save, then click Connect. On the console, enable Settings > Devices & connections > Remote features.",
-        "fr": "Enregistrez une application dans le portail Microsoft Azure (comptes Microsoft personnels, plateforme Web), avec l'URI de redirection affichée par le bouton Connecter. Copiez ci-dessous son ID d'application (client) et un secret client, enregistrez, puis cliquez sur Connecter. Sur la console, activez Paramètres > Appareils et connexions > Fonctionnalités à distance."
+        "fr": "Enregistrez une application dans le portail Microsoft Azure (comptes Microsoft personnels, plateforme Web), avec l'URI de redirection affichée par le bouton Connecter. Copiez ci-dessous son ID d'application (client) et un secret client, enregistrez, puis cliquez sur Connecter. Sur la console, activez Paramètres > Appareils et connexions > Fonctionnalités à distance.",
+        "de": "Registrieren Sie eine Anwendung im Microsoft-Azure-Portal (persönliche Microsoft-Konten, Plattform Web) mit dem Umleitungs-URI, den die Schaltfläche Verbinden anzeigt. Kopieren Sie unten ihre Anwendungs-ID (Client) und einen geheimen Clientschlüssel, speichern Sie und klicken Sie dann auf Verbinden. Aktivieren Sie auf der Konsole Einstellungen > Geräte und Verbindungen > Remotefunktionen.",
+        "es": "Registre una aplicación en el portal de Microsoft Azure (cuentas personales de Microsoft, plataforma Web), con el URI de redirección que muestra el botón Conectar. Copie abajo su Id. de aplicación (cliente) y un secreto de cliente, guarde y, después, pulse Conectar. En la consola, active Configuración > Dispositivos y conexiones > Características remotas."
       },
       "links": [
         {
           "url": "https://portal.azure.com/#view/Microsoft_AAD_RegisteredApps/ApplicationsListBlade",
           "label": {
             "en": "Azure app registrations",
-            "fr": "Inscriptions d'applications Azure"
+            "fr": "Inscriptions d'applications Azure",
+            "de": "Azure-App-Registrierungen",
+            "es": "Registros de aplicaciones de Azure"
           }
         }
       ]
@@ -84,15 +104,21 @@
       "type": "string",
       "label": {
         "en": "Application (client) ID",
-        "fr": "ID d'application (client)"
+        "fr": "ID d'application (client)",
+        "de": "Anwendungs-ID (Client)",
+        "es": "Id. de aplicación (cliente)"
       },
       "description": {
         "en": "The application ID of your Azure app registration.",
-        "fr": "L'ID d'application de votre inscription d'application Azure."
+        "fr": "L'ID d'application de votre inscription d'application Azure.",
+        "de": "Die Anwendungs-ID Ihrer Azure-App-Registrierung.",
+        "es": "El Id. de aplicación de su registro de aplicación de Azure."
       },
       "placeholder": {
         "en": "00000000-0000-0000-0000-000000000000",
-        "fr": "00000000-0000-0000-0000-000000000000"
+        "fr": "00000000-0000-0000-0000-000000000000",
+        "de": "00000000-0000-0000-0000-000000000000",
+        "es": "00000000-0000-0000-0000-000000000000"
       },
       "required": false,
       "default": ""
@@ -102,11 +128,15 @@
       "type": "secret",
       "label": {
         "en": "Client secret",
-        "fr": "Secret client"
+        "fr": "Secret client",
+        "de": "Geheimer Clientschlüssel",
+        "es": "Secreto de cliente"
       },
       "description": {
         "en": "The value of a client secret of the same application (Certificates & secrets). Leave it empty for a public client application.",
-        "fr": "La valeur d'un secret client de la même application (Certificats et secrets). Laissez vide pour une application cliente publique."
+        "fr": "La valeur d'un secret client de la même application (Certificats et secrets). Laissez vide pour une application cliente publique.",
+        "de": "Der Wert eines geheimen Clientschlüssels derselben Anwendung (Zertifikate & Geheimnisse). Für eine öffentliche Clientanwendung leer lassen.",
+        "es": "El valor de un secreto de cliente de la misma aplicación (Certificados y secretos). Déjelo vacío para una aplicación cliente pública."
       },
       "required": false
     },
@@ -115,11 +145,15 @@
       "type": "oauth2",
       "label": {
         "en": "Microsoft account",
-        "fr": "Compte Microsoft"
+        "fr": "Compte Microsoft",
+        "de": "Microsoft-Konto",
+        "es": "Cuenta Microsoft"
       },
       "description": {
         "en": "Links the Microsoft account that owns the consoles. Only a refresh token is kept, never your password.",
-        "fr": "Relie le compte Microsoft propriétaire des consoles. Seul un jeton de renouvellement est conservé, jamais votre mot de passe."
+        "fr": "Relie le compte Microsoft propriétaire des consoles. Seul un jeton de renouvellement est conservé, jamais votre mot de passe.",
+        "de": "Verknüpft das Microsoft-Konto, dem die Konsolen gehören. Es wird nur ein Aktualisierungstoken gespeichert, nie Ihr Passwort.",
+        "es": "Vincula la cuenta Microsoft propietaria de las consolas. Solo se conserva un token de actualización, nunca su contraseña."
       },
       "required": false
     },
@@ -128,11 +162,15 @@
       "type": "number",
       "label": {
         "en": "Refresh interval (s)",
-        "fr": "Intervalle de rafraîchissement (s)"
+        "fr": "Intervalle de rafraîchissement (s)",
+        "de": "Aktualisierungsintervall (s)",
+        "es": "Intervalo de actualización (s)"
       },
       "description": {
         "en": "How often each console is read, in seconds (30 seconds minimum).",
-        "fr": "Fréquence de lecture de chaque console, en secondes (30 secondes minimum)."
+        "fr": "Fréquence de lecture de chaque console, en secondes (30 secondes minimum).",
+        "de": "Wie oft jede Konsole gelesen wird, in Sekunden (mindestens 30 Sekunden).",
+        "es": "Frecuencia de lectura de cada consola, en segundos (30 segundos como mínimo)."
       },
       "required": false,
       "default": 60,
@@ -145,7 +183,9 @@
       "key": "test_connection",
       "label": {
         "en": "Test the connection and search for consoles",
-        "fr": "Tester la connexion et chercher les consoles"
+        "fr": "Tester la connexion et chercher les consoles",
+        "de": "Verbindung testen und Konsolen suchen",
+        "es": "Probar la conexión y buscar consolas"
       },
       "timeout_seconds": 30
     }
@@ -155,11 +195,15 @@
       "key": "title_started",
       "label": {
         "en": "A game starts on an Xbox",
-        "fr": "Un jeu démarre sur une Xbox"
+        "fr": "Un jeu démarre sur une Xbox",
+        "de": "Ein Spiel startet auf einer Xbox",
+        "es": "Un juego se inicia en una Xbox"
       },
       "description": {
         "en": "A game or an app comes to the foreground on a console (cloud channel).",
-        "fr": "Un jeu ou une application passe au premier plan sur une console (canal cloud)."
+        "fr": "Un jeu ou une application passe au premier plan sur une console (canal cloud).",
+        "de": "Ein Spiel oder eine App kommt auf einer Konsole in den Vordergrund (Cloud-Kanal).",
+        "es": "Un juego o una aplicación pasa a primer plano en una consola (canal en la nube)."
       },
       "fields": [
         {
@@ -168,7 +212,9 @@
           "source": "devices",
           "label": {
             "en": "Console",
-            "fr": "Console"
+            "fr": "Console",
+            "de": "Konsole",
+            "es": "Consola"
           }
         },
         {
@@ -176,11 +222,15 @@
           "type": "string",
           "label": {
             "en": "Game name (exact)",
-            "fr": "Nom du jeu (exact)"
+            "fr": "Nom du jeu (exact)",
+            "de": "Spielname (exakt)",
+            "es": "Nombre del juego (exacto)"
           },
           "placeholder": {
             "en": "Minecraft",
-            "fr": "Minecraft"
+            "fr": "Minecraft",
+            "de": "Minecraft",
+            "es": "Minecraft"
           }
         }
       ],
@@ -190,7 +240,9 @@
           "type": "string",
           "label": {
             "en": "Game name",
-            "fr": "Nom du jeu"
+            "fr": "Nom du jeu",
+            "de": "Spielname",
+            "es": "Nombre del juego"
           }
         },
         {
@@ -198,7 +250,9 @@
           "type": "string",
           "label": {
             "en": "Game ID",
-            "fr": "Identifiant du jeu"
+            "fr": "Identifiant du jeu",
+            "de": "Spiel-ID",
+            "es": "ID del juego"
           }
         }
       ]
@@ -207,11 +261,15 @@
       "key": "title_stopped",
       "label": {
         "en": "A game stops on an Xbox",
-        "fr": "Un jeu s'arrête sur une Xbox"
+        "fr": "Un jeu s'arrête sur une Xbox",
+        "de": "Ein Spiel endet auf einer Xbox",
+        "es": "Un juego se detiene en una Xbox"
       },
       "description": {
         "en": "The game in the foreground is closed, replaced or the console turned off (cloud channel).",
-        "fr": "Le jeu au premier plan est fermé, remplacé, ou la console s'est éteinte (canal cloud)."
+        "fr": "Le jeu au premier plan est fermé, remplacé, ou la console s'est éteinte (canal cloud).",
+        "de": "Das Spiel im Vordergrund wird geschlossen oder ersetzt, oder die Konsole wurde ausgeschaltet (Cloud-Kanal).",
+        "es": "El juego en primer plano se cierra o se sustituye, o la consola se apaga (canal en la nube)."
       },
       "fields": [
         {
@@ -220,7 +278,9 @@
           "source": "devices",
           "label": {
             "en": "Console",
-            "fr": "Console"
+            "fr": "Console",
+            "de": "Konsole",
+            "es": "Consola"
           }
         },
         {
@@ -228,11 +288,15 @@
           "type": "string",
           "label": {
             "en": "Game name (exact)",
-            "fr": "Nom du jeu (exact)"
+            "fr": "Nom du jeu (exact)",
+            "de": "Spielname (exakt)",
+            "es": "Nombre del juego (exacto)"
           },
           "placeholder": {
             "en": "Minecraft",
-            "fr": "Minecraft"
+            "fr": "Minecraft",
+            "de": "Minecraft",
+            "es": "Minecraft"
           }
         }
       ],
@@ -242,7 +306,9 @@
           "type": "string",
           "label": {
             "en": "Game name",
-            "fr": "Nom du jeu"
+            "fr": "Nom du jeu",
+            "de": "Spielname",
+            "es": "Nombre del juego"
           }
         },
         {
@@ -250,7 +316,9 @@
           "type": "string",
           "label": {
             "en": "Game ID",
-            "fr": "Identifiant du jeu"
+            "fr": "Identifiant du jeu",
+            "de": "Spiel-ID",
+            "es": "ID del juego"
           }
         },
         {
@@ -258,7 +326,9 @@
           "type": "number",
           "label": {
             "en": "Minutes played",
-            "fr": "Minutes de jeu"
+            "fr": "Minutes de jeu",
+            "de": "Gespielte Minuten",
+            "es": "Minutos jugados"
           }
         }
       ]
@@ -269,11 +339,15 @@
       "key": "wake_console",
       "label": {
         "en": "Turn on an Xbox and wait",
-        "fr": "Allumer une Xbox et attendre"
+        "fr": "Allumer une Xbox et attendre",
+        "de": "Eine Xbox einschalten und warten",
+        "es": "Encender una Xbox y esperar"
       },
       "description": {
         "en": "Turns the console on, then waits until it answers, for the next actions.",
-        "fr": "Allume la console, puis attend qu'elle réponde, pour les actions suivantes."
+        "fr": "Allume la console, puis attend qu'elle réponde, pour les actions suivantes.",
+        "de": "Schaltet die Konsole ein und wartet dann, bis sie antwortet, für die nächsten Aktionen.",
+        "es": "Enciende la consola y espera a que responda, para las acciones siguientes."
       },
       "timeout_seconds": 120,
       "fields": [
@@ -283,7 +357,9 @@
           "source": "devices",
           "label": {
             "en": "Console",
-            "fr": "Console"
+            "fr": "Console",
+            "de": "Konsole",
+            "es": "Consola"
           },
           "required": true
         },
@@ -292,7 +368,9 @@
           "type": "number",
           "label": {
             "en": "Wait at most (s)",
-            "fr": "Attendre au plus (s)"
+            "fr": "Attendre au plus (s)",
+            "de": "Höchstens warten (s)",
+            "es": "Esperar como máximo (s)"
           },
           "required": false,
           "default": 60,
@@ -306,7 +384,9 @@
           "type": "boolean",
           "label": {
             "en": "Console on",
-            "fr": "Console allumée"
+            "fr": "Console allumée",
+            "de": "Konsole eingeschaltet",
+            "es": "Consola encendida"
           }
         }
       ]
@@ -315,11 +395,15 @@
       "key": "launch_game",
       "label": {
         "en": "Launch a game on an Xbox",
-        "fr": "Lancer un jeu sur une Xbox"
+        "fr": "Lancer un jeu sur une Xbox",
+        "de": "Ein Spiel auf einer Xbox starten",
+        "es": "Iniciar un juego en una Xbox"
       },
       "description": {
         "en": "Opens a game or an app by its Microsoft Store product ID (cloud channel).",
-        "fr": "Ouvre un jeu ou une application par son ID de produit Microsoft Store (canal cloud)."
+        "fr": "Ouvre un jeu ou une application par son ID de produit Microsoft Store (canal cloud).",
+        "de": "Öffnet ein Spiel oder eine App über seine Produkt-ID im Microsoft Store (Cloud-Kanal).",
+        "es": "Abre un juego o una aplicación por su ID de producto de Microsoft Store (canal en la nube)."
       },
       "timeout_seconds": 30,
       "fields": [
@@ -329,7 +413,9 @@
           "source": "devices",
           "label": {
             "en": "Console",
-            "fr": "Console"
+            "fr": "Console",
+            "de": "Konsole",
+            "es": "Consola"
           },
           "required": true
         },
@@ -338,15 +424,21 @@
           "type": "string",
           "label": {
             "en": "Store product ID",
-            "fr": "ID de produit Store"
+            "fr": "ID de produit Store",
+            "de": "Store-Produkt-ID",
+            "es": "ID de producto de Store"
           },
           "description": {
             "en": "The 12 characters at the end of the game page address on xbox.com or the Microsoft Store, e.g. 9NBLGGH2JHXJ.",
-            "fr": "Les 12 caractères à la fin de l'adresse de la page du jeu sur xbox.com ou le Microsoft Store, ex. 9NBLGGH2JHXJ."
+            "fr": "Les 12 caractères à la fin de l'adresse de la page du jeu sur xbox.com ou le Microsoft Store, ex. 9NBLGGH2JHXJ.",
+            "de": "Die 12 Zeichen am Ende der Adresse der Spielseite auf xbox.com oder im Microsoft Store, z. B. 9NBLGGH2JHXJ.",
+            "es": "Los 12 caracteres al final de la dirección de la página del juego en xbox.com o en Microsoft Store, p. ej. 9NBLGGH2JHXJ."
           },
           "placeholder": {
             "en": "9NBLGGH2JHXJ",
-            "fr": "9NBLGGH2JHXJ"
+            "fr": "9NBLGGH2JHXJ",
+            "de": "9NBLGGH2JHXJ",
+            "es": "9NBLGGH2JHXJ"
           },
           "required": true
         }
@@ -357,7 +449,9 @@
           "type": "boolean",
           "label": {
             "en": "Game launched",
-            "fr": "Jeu lancé"
+            "fr": "Jeu lancé",
+            "de": "Spiel gestartet",
+            "es": "Juego iniciado"
           }
         }
       ]
@@ -366,11 +460,15 @@
       "key": "press_button",
       "label": {
         "en": "Press a controller button",
-        "fr": "Appuyer sur un bouton de manette"
+        "fr": "Appuyer sur un bouton de manette",
+        "de": "Eine Controller-Taste drücken",
+        "es": "Pulsar un botón del mando"
       },
       "description": {
         "en": "Presses one button of the controller on a console (cloud channel).",
-        "fr": "Appuie sur un bouton de la manette d'une console (canal cloud)."
+        "fr": "Appuie sur un bouton de la manette d'une console (canal cloud).",
+        "de": "Drückt eine Taste des Controllers einer Konsole (Cloud-Kanal).",
+        "es": "Pulsa un botón del mando de una consola (canal en la nube)."
       },
       "timeout_seconds": 15,
       "fields": [
@@ -380,7 +478,9 @@
           "source": "devices",
           "label": {
             "en": "Console",
-            "fr": "Console"
+            "fr": "Console",
+            "de": "Konsole",
+            "es": "Consola"
           },
           "required": true
         },
@@ -389,7 +489,9 @@
           "type": "select",
           "label": {
             "en": "Button",
-            "fr": "Bouton"
+            "fr": "Bouton",
+            "de": "Taste",
+            "es": "Botón"
           },
           "required": true,
           "options": [
@@ -397,77 +499,99 @@
               "value": "A",
               "label": {
                 "en": "A",
-                "fr": "A"
+                "fr": "A",
+                "de": "A",
+                "es": "A"
               }
             },
             {
               "value": "B",
               "label": {
                 "en": "B",
-                "fr": "B"
+                "fr": "B",
+                "de": "B",
+                "es": "B"
               }
             },
             {
               "value": "X",
               "label": {
                 "en": "X",
-                "fr": "X"
+                "fr": "X",
+                "de": "X",
+                "es": "X"
               }
             },
             {
               "value": "Y",
               "label": {
                 "en": "Y",
-                "fr": "Y"
+                "fr": "Y",
+                "de": "Y",
+                "es": "Y"
               }
             },
             {
               "value": "Up",
               "label": {
                 "en": "Up",
-                "fr": "Haut"
+                "fr": "Haut",
+                "de": "Oben",
+                "es": "Arriba"
               }
             },
             {
               "value": "Down",
               "label": {
                 "en": "Down",
-                "fr": "Bas"
+                "fr": "Bas",
+                "de": "Unten",
+                "es": "Abajo"
               }
             },
             {
               "value": "Left",
               "label": {
                 "en": "Left",
-                "fr": "Gauche"
+                "fr": "Gauche",
+                "de": "Links",
+                "es": "Izquierda"
               }
             },
             {
               "value": "Right",
               "label": {
                 "en": "Right",
-                "fr": "Droite"
+                "fr": "Droite",
+                "de": "Rechts",
+                "es": "Derecha"
               }
             },
             {
               "value": "Nexus",
               "label": {
                 "en": "Xbox button (guide)",
-                "fr": "Bouton Xbox (guide)"
+                "fr": "Bouton Xbox (guide)",
+                "de": "Xbox-Taste (Guide)",
+                "es": "Botón Xbox (guía)"
               }
             },
             {
               "value": "View",
               "label": {
                 "en": "View",
-                "fr": "Affichage"
+                "fr": "Affichage",
+                "de": "Ansicht",
+                "es": "Vista"
               }
             },
             {
               "value": "Menu",
               "label": {
                 "en": "Menu",
-                "fr": "Menu"
+                "fr": "Menu",
+                "de": "Menü",
+                "es": "Menú"
               }
             }
           ]
@@ -479,7 +603,9 @@
           "type": "boolean",
           "label": {
             "en": "Button pressed",
-            "fr": "Bouton appuyé"
+            "fr": "Bouton appuyé",
+            "de": "Taste gedrückt",
+            "es": "Botón pulsado"
           }
         }
       ]
@@ -490,11 +616,15 @@
       "key": "xbox_console",
       "label": {
         "en": "Xbox console",
-        "fr": "Console Xbox"
+        "fr": "Console Xbox",
+        "de": "Xbox-Konsole",
+        "es": "Consola Xbox"
       },
       "description": {
         "en": "Power, game being played and connection of a console, with quick buttons.",
-        "fr": "Alimentation, jeu en cours et connexion d'une console, avec boutons rapides."
+        "fr": "Alimentation, jeu en cours et connexion d'une console, avec boutons rapides.",
+        "de": "Betrieb, laufendes Spiel und Verbindung einer Konsole, mit Schnelltasten.",
+        "es": "Encendido, juego en curso y conexión de una consola, con botones rápidos."
       },
       "icon": "monitor",
       "settings": [
@@ -504,12 +634,16 @@
           "source": "devices",
           "label": {
             "en": "Console",
-            "fr": "Console"
+            "fr": "Console",
+            "de": "Konsole",
+            "es": "Consola"
           },
           "required": false,
           "description": {
             "en": "Leave empty to show the first console.",
-            "fr": "Laissez vide pour afficher la première console."
+            "fr": "Laissez vide pour afficher la première console.",
+            "de": "Leer lassen, um die erste Konsole anzuzeigen.",
+            "es": "Déjelo vacío para mostrar la primera consola."
           }
         }
       ],

@@ -18,6 +18,17 @@ test('the Unreleased section moves under the released version', () => {
 test('the changelog of the repository can be rolled', async () => {
   const changelog = await readFile(new URL('../CHANGELOG.md', import.meta.url), 'utf8');
   assert.ok(changelog.includes('## [Unreleased]'));
-  assert.match(changelog, /^\[Unreleased\]: \S+\/commits\/main$/m);
+  assert.match(changelog, /^## \[Unreleased\]$/m);
+  assert.match(changelog, /^\[Unreleased\]: \S+\/(commits\/main|compare\/v\S+\.\.\.HEAD)$/m);
   assert.notEqual(rollChangelog(changelog, '9.9.9', '2026-10-13'), changelog);
+});
+
+test('a mention of the heading in the intro text is not the section', () => {
+  // The 1.0.1 release wrote its section inside the intro, which quotes the heading.
+  const before =
+    '# Changelog\n\nDescribe each change under `## [Unreleased]` as you make it.\n\n' +
+    `## [Unreleased]\n\n### Added\n\n- Something new.\n\n[Unreleased]: ${REPO}/commits/main\n`;
+  const after = rollChangelog(before, '1.0.0', '2026-10-12');
+  assert.match(after, /under `## \[Unreleased\]` as you make it\./);
+  assert.match(after, /## \[1\.0\.0\] - 2026-10-12\n\n### Added\n\n- Something new\./);
 });

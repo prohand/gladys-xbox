@@ -87,12 +87,13 @@ src/widgets.js          widget handlers (manifest `widgets`)
 - **Changelog.** Every user-visible change adds a line under `## [Unreleased]` in
   `CHANGELOG.md` (`### Added`, `Changed`, `Fixed`, `Removed`, `Security`). Never write a
   version heading: the Release workflow moves the section.
-- **Manifest.** Every text is `{ "en": ..., "fr": ... }` (label, description, placeholder);
+- **Manifest.** Every text is `{ "en": ..., "fr": ..., "de": ..., "es": ... }` (label, description, placeholder);
   the catalog description holds 10 to 100 characters per language; `widgets`,
   `scene_triggers`, `scene_actions` need `gladys_version >= 5.1.0`. `test/manifest.test.js`
   ties the manifest to the code: change both sides together.
-- **User-facing text** is bilingual (English and French): action messages, manifest texts,
-  `docs/en.md` / `docs/fr.md`, kept in sync.
+- **User-facing text** is `{ en, fr, de, es }` (English, French, German, Spanish): action
+  messages, manifest texts, widget texts; `docs/en.md`, `docs/fr.md`, `docs/de.md`,
+  `docs/es.md` stay in sync.
 - **Tests never touch the network**: `test/helpers/fakeXbox.js` fakes the UDP transport and
   Xbox Live, `test/helpers/start.js` runs the app against `createFakeGladys()` of the SDK.
 - **Style.** Prettier formats, ESLint catches mistakes. Comments explain why, in English.

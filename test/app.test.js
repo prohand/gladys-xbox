@@ -129,7 +129,9 @@ test('poll: without a local address the cloud serves the console, flagged degrad
   const entry = gladys.fake.transports.at(-1);
   assert.equal(entry.transport, 'cloud');
   assert.equal(entry.degraded, true);
-  assert.ok(entry.message.fr);
+  for (const lang of ['en', 'fr', 'de', 'es']) {
+    assert.ok(entry.message[lang], `the transport message needs a ${lang} text`);
+  }
 });
 
 test('poll: with "prefer local" off, the cloud is asked first', async () => {
@@ -280,6 +282,9 @@ test('"Test the connection" reports both channels', async () => {
   );
   assert.match(data.message.en, /signed in as GladysFan, 1 console/);
   assert.match(data.message.fr, /Réseau local/);
+  assert.match(data.message.de, /Lokales Netzwerk: 1 Konsole\(n\).*angemeldet als GladysFan/);
+  assert.match(data.message.es, /Red local: 1 consola\(s\).*sesión iniciada como GladysFan/);
+  assert.deepEqual(Object.keys(data.message), ['en', 'fr', 'de', 'es']);
 });
 
 test('a console created in Gladys keeps its address after a restart', async () => {
