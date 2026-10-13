@@ -1,6 +1,6 @@
 {
   "name": "gladys-xbox",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "description": "Gladys Assistant external integration for Xbox consoles (local SmartGlass and Xbox Live cloud).",
   "type": "module",
