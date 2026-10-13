@@ -108,9 +108,9 @@ export const WIDGETS = {
               type: 'text',
               variant: 'body',
               text: {
-                en: 'No console yet: run "Test the connection" in the integration, then create the console in the Discovery tab.',
+                en: 'No console yet: run "Test the connection" in the integration, then create the console in the Discover tab.',
                 fr: "Aucune console pour l'instant : lancez « Tester la connexion » dans l'intégration, puis créez la console dans l'onglet Découverte.",
-                de: 'Noch keine Konsole: Führen Sie in der Integration „Verbindung testen“ aus und erstellen Sie die Konsole dann im Tab „Entdecken“.',
+                de: 'Noch keine Konsole: Führe in der Integration „Verbindung testen“ aus und erstelle die Konsole dann im Tab „Entdecken“.',
                 es: 'Todavía no hay ninguna consola: ejecute «Probar la conexión» en la integración y, después, cree la consola en la pestaña «Descubrir».',
               },
             },

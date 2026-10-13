@@ -5,7 +5,7 @@
   "description": {
     "en": "Turn your Xbox consoles on and off, control them and see the game being played.",
     "fr": "Allumez et éteignez vos consoles Xbox, pilotez-les et voyez le jeu en cours.",
-    "de": "Schalten Sie Ihre Xbox-Konsolen ein und aus, steuern Sie sie und sehen Sie das laufende Spiel.",
+    "de": "Schalte deine Xbox-Konsolen ein und aus, steuere sie und sieh das laufende Spiel.",
     "es": "Encienda y apague sus consolas Xbox, contrólelas y vea el juego en curso."
   },
   "version": "1.0.2",
@@ -33,7 +33,7 @@
       "description": {
         "en": "Local channel, no account needed: the integration finds the consoles of your network, sees whether they are on and turns them on. Set the console power mode to Sleep (instant-on). Cloud channel, optional: with your Microsoft account it also turns them off, controls the volume, the media and the controller buttons, launches games and shows the game being played.",
         "fr": "Canal local, sans compte : l'intégration trouve les consoles de votre réseau, voit si elles sont allumées et les allume. Réglez le mode d'alimentation de la console sur Veille (démarrage instantané). Canal cloud, facultatif : avec votre compte Microsoft, elle les éteint aussi, règle le volume, pilote les médias et les boutons de la manette, lance des jeux et affiche le jeu en cours.",
-        "de": "Lokaler Kanal, ohne Konto: Die Integration findet die Konsolen in Ihrem Netzwerk, erkennt, ob sie eingeschaltet sind, und schaltet sie ein. Stellen Sie den Energiemodus der Konsole auf Ruhemodus (Sofort-Ein). Cloud-Kanal, optional: Mit Ihrem Microsoft-Konto schaltet sie sie auch aus, regelt die Lautstärke, steuert die Medien und die Controller-Tasten, startet Spiele und zeigt das laufende Spiel an.",
+        "de": "Lokaler Kanal, ohne Konto: Die Integration findet die Konsolen in deinem Netzwerk, erkennt, ob sie eingeschaltet sind, und schaltet sie ein. Stelle den Energiemodus der Konsole auf Ruhemodus (Sofort-Ein). Cloud-Kanal, optional: Mit deinem Microsoft-Konto schaltet sie sie auch aus, regelt die Lautstärke, steuert die Medien und die Controller-Tasten, startet Spiele und zeigt das laufende Spiel an.",
         "es": "Canal local, sin cuenta: la integración encuentra las consolas de su red, detecta si están encendidas y las enciende. Configure el modo de energía de la consola en Suspensión (inicio instantáneo). Canal en la nube, opcional: con su cuenta Microsoft también las apaga, ajusta el volumen, controla la multimedia y los botones del mando, inicia juegos y muestra el juego en curso."
       },
       "links": [
@@ -60,7 +60,7 @@
       "description": {
         "en": "Optional. The consoles are found automatically on the network; list here the ones that are not (another subnet, a router that filters broadcasts), separated by commas.",
         "fr": "Facultatif. Les consoles sont trouvées automatiquement sur le réseau ; indiquez ici celles qui ne le sont pas (autre sous-réseau, routeur qui filtre la diffusion), séparées par des virgules.",
-        "de": "Optional. Die Konsolen werden automatisch im Netzwerk gefunden; geben Sie hier diejenigen an, die nicht gefunden werden (anderes Subnetz, Router, der Broadcasts filtert), durch Kommas getrennt.",
+        "de": "Optional. Die Konsolen werden automatisch im Netzwerk gefunden; gib hier diejenigen an, die nicht gefunden werden (anderes Subnetz, Router, der Broadcasts filtert), durch Kommas getrennt.",
         "es": "Opcional. Las consolas se encuentran automáticamente en la red; indique aquí las que no se encuentran (otra subred, un router que filtra la difusión), separadas por comas."
       },
       "placeholder": {
@@ -84,7 +84,7 @@
       "description": {
         "en": "Register an application in the Microsoft Azure portal (personal Microsoft accounts, Web platform), with the redirect URI shown by the Connect button. Copy its application (client) ID and a client secret below, save, then click Connect. On the console, enable Settings > Devices & connections > Remote features.",
         "fr": "Enregistrez une application dans le portail Microsoft Azure (comptes Microsoft personnels, plateforme Web), avec l'URI de redirection affichée par le bouton Connecter. Copiez ci-dessous son ID d'application (client) et un secret client, enregistrez, puis cliquez sur Connecter. Sur la console, activez Paramètres > Appareils et connexions > Fonctionnalités à distance.",
-        "de": "Registrieren Sie eine Anwendung im Microsoft-Azure-Portal (persönliche Microsoft-Konten, Plattform Web) mit dem Umleitungs-URI, den die Schaltfläche Verbinden anzeigt. Kopieren Sie unten ihre Anwendungs-ID (Client) und einen geheimen Clientschlüssel, speichern Sie und klicken Sie dann auf Verbinden. Aktivieren Sie auf der Konsole Einstellungen > Geräte und Verbindungen > Remotefunktionen.",
+        "de": "Registriere eine Anwendung im Microsoft-Azure-Portal (persönliche Microsoft-Konten, Plattform Web) mit dem Umleitungs-URI, den die Schaltfläche Verbinden anzeigt. Kopiere unten ihre Anwendungs-ID (Client) und einen geheimen Clientschlüssel, speichere und klicke dann auf Verbinden. Aktiviere auf der Konsole Einstellungen > Geräte und Verbindungen > Remotefunktionen.",
         "es": "Registre una aplicación en el portal de Microsoft Azure (cuentas personales de Microsoft, plataforma Web), con el URI de redirección que muestra el botón Conectar. Copie abajo su Id. de aplicación (cliente) y un secreto de cliente, guarde y, después, pulse Conectar. En la consola, active Configuración > Dispositivos y conexiones > Características remotas."
       },
       "links": [
@@ -111,7 +111,7 @@
       "description": {
         "en": "The application ID of your Azure app registration.",
         "fr": "L'ID d'application de votre inscription d'application Azure.",
-        "de": "Die Anwendungs-ID Ihrer Azure-App-Registrierung.",
+        "de": "Die Anwendungs-ID deiner Azure-App-Registrierung.",
         "es": "El Id. de aplicación de su registro de aplicación de Azure."
       },
       "placeholder": {
@@ -152,7 +152,7 @@
       "description": {
         "en": "Links the Microsoft account that owns the consoles. Only a refresh token is kept, never your password.",
         "fr": "Relie le compte Microsoft propriétaire des consoles. Seul un jeton de renouvellement est conservé, jamais votre mot de passe.",
-        "de": "Verknüpft das Microsoft-Konto, dem die Konsolen gehören. Es wird nur ein Aktualisierungstoken gespeichert, nie Ihr Passwort.",
+        "de": "Verknüpft das Microsoft-Konto, dem die Konsolen gehören. Es wird nur ein Aktualisierungstoken gespeichert, nie dein Passwort.",
         "es": "Vincula la cuenta Microsoft propietaria de las consolas. Solo se conserva un token de actualización, nunca su contraseña."
       },
       "required": false

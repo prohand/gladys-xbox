@@ -468,7 +468,7 @@ export function createXboxService({ gladys, local, auth, cloud, now = Date.now, 
         await gladys.setConnectionStatus(false, {
           en: 'Microsoft account not linked: click Connect.',
           fr: 'Compte Microsoft non relié : cliquez sur Connecter.',
-          de: 'Microsoft-Konto nicht verknüpft: Klicken Sie auf Verbinden.',
+          de: 'Microsoft-Konto nicht verknüpft: Klicke auf Verbinden.',
           es: 'Cuenta Microsoft no vinculada: pulse Conectar.',
         });
         return;
@@ -484,7 +484,7 @@ export function createXboxService({ gladys, local, auth, cloud, now = Date.now, 
             ? {
                 en: 'The Microsoft account link expired: click Connect again.',
                 fr: 'Le lien avec le compte Microsoft a expiré : cliquez à nouveau sur Connecter.',
-                de: 'Die Verknüpfung mit dem Microsoft-Konto ist abgelaufen: Klicken Sie erneut auf Verbinden.',
+                de: 'Die Verknüpfung mit dem Microsoft-Konto ist abgelaufen: Klicke erneut auf Verbinden.',
                 es: 'El vínculo con la cuenta Microsoft ha caducado: pulse Conectar de nuevo.',
               }
             : {
@@ -533,7 +533,7 @@ export function createXboxService({ gladys, local, auth, cloud, now = Date.now, 
         lines.push({
           en: 'Cloud: Microsoft account not linked, click Connect.',
           fr: 'Cloud : compte Microsoft non relié, cliquez sur Connecter.',
-          de: 'Cloud: Microsoft-Konto nicht verknüpft, klicken Sie auf Verbinden.',
+          de: 'Cloud: Microsoft-Konto nicht verknüpft, klicke auf Verbinden.',
           es: 'Nube: cuenta Microsoft no vinculada, pulse Conectar.',
         });
       } else if (cloudError) {

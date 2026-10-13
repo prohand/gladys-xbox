@@ -122,9 +122,10 @@ juego de la cuenta vinculada.
 
 ## Widget del panel
 
-Añada el widget **Consola Xbox** y elija una consola (la primera de forma
-predeterminada): alimentación, juego en curso, conexión, cuenta y botones
-rápidos — encender y, con el canal en la nube: inicio, reproducir/pausa, apagar.
+En **Panel → Editar → Nuevo widget**, añada el widget **Consola Xbox** y elija
+una consola (la primera de forma predeterminada): alimentación, juego en curso,
+conexión, cuenta y botones rápidos — encender y, con el canal en la nube:
+inicio, reproducir/pausa, apagar.
 
 ## Solución de problemas
 
@@ -138,5 +139,5 @@ rápidos — encender y, con el canal en la nube: inicio, reproducir/pausa, apag
   Microsoft.
 - **Los comandos no hacen nada**: habilite las características remotas en la
   consola.
-- **Registros**: Gladys → Integraciones → Xbox → registros. Nunca contienen sus
-  tokens ni su secreto.
+- **Registros**: Gladys → Integraciones → Xbox → pestaña **Registros**. Nunca
+  contienen sus tokens ni su secreto.
