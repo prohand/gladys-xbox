@@ -4,7 +4,11 @@ All notable changes to this integration are documented in this file. The format
 follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project
 uses [semantic versioning](https://semver.org/).
 
-Describe each change under `## [Unreleased]` as you make it. The Release
+Describe each change under `## [Unreleased]
+
+## [1.0.1] - 2026-10-13
+
+` as you make it. The Release
 workflow moves that section under the version it ships, and the section becomes
 the notes of the version's GitHub Release.
 
@@ -32,4 +36,5 @@ the notes of the version's GitHub Release.
 - CI (format, lint, tests on Node 22 and 24, store checks and Docker build on
   pull requests), UI-driven releases, GitHub Releases, Dependabot.
 
-[Unreleased]: https://github.com/prohand/gladys-xbox/commits/main
+[Unreleased]: https://github.com/prohand/gladys-xbox/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/prohand/gladys-xbox/releases/tag/v1.0.1
