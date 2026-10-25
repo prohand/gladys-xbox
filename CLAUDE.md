@@ -17,8 +17,10 @@ Two channels, one device per console keyed on its **Live ID**:
 - **cloud** — Xbox Live with the user's Microsoft account (oauth2 config field): power off,
   volume, mute, media and controller keys, launching a game, the game being played.
 
-Gladys 5.1+ capabilities: scene triggers (`title_started`, `title_stopped`), scene actions
-(`wake_console`, `launch_game`, `press_button`) and the `xbox_console` widget.
+Requires Gladys 5.3+ (manifest `keywords`). Capabilities: scene triggers (`title_started`,
+`title_stopped`), scene actions (`wake_console`, `launch_game`, `press_button`) and the
+`xbox_console` widget. No `music` player: the console reports a media playback state but no
+track (no title, artist, artwork nor position), and the presence names a game, not a track.
 
 ## Commands
 
@@ -72,8 +74,9 @@ src/widgets.js          widget handlers (manifest `widgets`)
 - **Channel choice** follows `GLADYS_PREFER_LOCAL` for the state read and the power on; the
   badge says which channel served the console last.
 - **Polling**: devices declare `should_poll: true` + `poll_frequency` 30 000 ms (an enum in
-  ms; any other value rejects the whole discovery batch). The configured `poll_frequency` is
-  in seconds and applied by skipping polls.
+  ms; any other value rejects the whole discovery batch). Gladys 5.3+ sets `should_poll` itself
+  when a `poll_frequency` is published; it is kept for the devices created by older cores. The
+  configured `poll_frequency` is in seconds and applied by skipping polls.
 - **Scene events fire on transitions only** (a game starts / stops), never on the first
   observation after a restart, never as a consequence of a received action.
 - **Secrets**: only the Microsoft refresh token is stored, in the off-schema config key
@@ -89,8 +92,10 @@ src/widgets.js          widget handlers (manifest `widgets`)
   version heading: the Release workflow moves the section.
 - **Manifest.** Every text is `{ "en": ..., "fr": ..., "de": ..., "es": ... }` (label, description, placeholder);
   the catalog description holds 10 to 100 characters per language; `widgets`,
-  `scene_triggers`, `scene_actions` need `gladys_version >= 5.1.0`. `test/manifest.test.js`
-  ties the manifest to the code: change both sides together.
+  `scene_triggers`, `scene_actions` need `gladys_version >= 5.1.0`, `keywords`, `countries`
+  and `music` `>= 5.3.0` (the floor today). Categories `multimedia` + `leisure`, no
+  `countries` (worldwide). `test/manifest.test.js` ties the manifest to the code: change both
+  sides together.
 - **User-facing text** is `{ en, fr, de, es }` (English, French, German, Spanish): action
   messages, manifest texts, widget texts; `docs/en.md`, `docs/fr.md`, `docs/de.md`,
   `docs/es.md` stay in sync.

@@ -4,6 +4,8 @@ Control your Xbox consoles (Xbox One, Xbox Series X|S) from Gladys: turn them on
 and off, see whether they are on and which game is being played, use them in
 scenes and on the dashboard.
 
+Requires **Gladys 5.3.0 or later**.
+
 ## Two channels
 
 | Channel                  | Needs               | What it does                                                                                               |

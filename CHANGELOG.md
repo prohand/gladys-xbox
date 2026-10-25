@@ -10,6 +10,18 @@ the notes of the version's GitHub Release.
 
 ## [Unreleased]
 
+### Added
+
+- Store catalog: search keywords (Microsoft, Xbox One, Xbox Series X|S, Xbox
+  Live, SmartGlass…) and the new "Leisure" shelf next to "Multimedia".
+
+### Changed
+
+- Requires Gladys 5.3.0 or later.
+- Gladys integration SDK 0.16.
+- Pull-request CI runs the store checks without the image check; the Release
+  workflow runs the full store check once the image is published.
+
 ## [1.1.1] - 2026-10-23
 
 - Maintenance release, no functional change.

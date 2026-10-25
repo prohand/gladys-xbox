@@ -87,8 +87,68 @@ test('declaring scene triggers, scene actions or widgets requires Gladys >= 5.1.
   );
 });
 
-test('the catalog categories are 1 to 3 keys', () => {
-  assert.ok(manifest.categories.length >= 1 && manifest.categories.length <= 3);
+// The store's controlled vocabulary of browse categories (an unknown key is
+// dropped by the indexer with a warning: a typo silently costs a shelf).
+const CATEGORY_VOCABULARY = [
+  'climate',
+  'lighting',
+  'energy',
+  'security',
+  'multimedia',
+  'appliances',
+  'environment',
+  'protocols',
+  'network',
+  'notifications',
+  'assistants',
+  'services',
+  'transport',
+  'vehicles',
+  'servers',
+  'leisure',
+];
+
+test('the catalog categories are 1 to 3 unique keys of the store vocabulary', () => {
+  const { categories } = manifest;
+  assert.ok(categories.length >= 1 && categories.length <= 3);
+  assert.equal(new Set(categories).size, categories.length, 'categories must be unique');
+  for (const category of categories) {
+    assert.ok(CATEGORY_VOCABULARY.includes(category), `unknown category "${category}"`);
+  }
+  assert.ok(categories.includes('leisure'), 'a games console belongs on the leisure shelf');
+});
+
+test('the search keywords are 1 to 10 unique strings of 2 to 30 characters', () => {
+  const { keywords } = manifest;
+  assert.ok(Array.isArray(keywords), 'keywords are declared');
+  assert.ok(keywords.length >= 1 && keywords.length <= 10, `${keywords.length} keywords`);
+  const normalized = keywords.map((keyword) => keyword.trim().toLowerCase());
+  assert.equal(new Set(normalized).size, keywords.length, 'keywords must be unique');
+  for (const keyword of normalized) {
+    assert.ok(keyword.length >= 2 && keyword.length <= 30, `keyword "${keyword}"`);
+  }
+});
+
+test('no country is declared: Xbox consoles and Xbox Live are worldwide', () => {
+  // Declared countries hide the integration from the catalog of an instance
+  // located elsewhere; when present they must be upper-case ISO alpha-2 codes.
+  assert.equal(manifest.countries, undefined);
+});
+
+test('keywords, countries and music require Gladys >= 5.3.0', () => {
+  const declared = ['keywords', 'countries', 'music'].filter((field) => field in manifest);
+  assert.ok(declared.length > 0, 'keywords are declared');
+  assert.ok(
+    isAtLeast(minGladysVersion(), [5, 3, 0]),
+    `${declared.join(', ')} requires gladys_version >= 5.3.0, got "${manifest.gladys_version}"`,
+  );
+});
+
+test('the music player field is not declared: the console reports no track', () => {
+  // The console control service gives a media playback state but no title,
+  // artist, artwork nor position, and the presence names a game or an app,
+  // not a track: there is no honest "now playing" to publish.
+  assert.equal(manifest.music, undefined);
 });
 
 test('both transports are declared: local (SmartGlass) and cloud (Xbox Live)', () => {
