@@ -4,6 +4,8 @@ Controle sus consolas Xbox (Xbox One, Xbox Series X|S) desde Gladys: enciéndala
 y apáguelas, vea si están encendidas y a qué juego se está jugando, y úselas en
 escenas y en el panel.
 
+Requiere **Gladys 5.3.0 o posterior**.
+
 ## Dos canales
 
 | Canal                | Requisito            | Qué hace                                                                                                                     |

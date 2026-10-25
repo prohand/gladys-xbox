@@ -4,6 +4,8 @@ Steuere deine Xbox-Konsolen (Xbox One, Xbox Series X|S) über Gladys: Schalte si
 ein und aus, sieh, ob sie eingeschaltet sind und welches Spiel läuft, und
 verwende sie in Szenen und auf dem Dashboard.
 
+Erfordert **Gladys 5.3.0 oder neuer**.
+
 ## Zwei Kanäle
 
 | Kanal                     | Voraussetzung       | Funktionen                                                                                                                          |

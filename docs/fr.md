@@ -4,6 +4,8 @@ Pilotez vos consoles Xbox (Xbox One, Xbox Series X|S) depuis Gladys : allumez-le
 et éteignez-les, voyez si elles sont allumées et à quel jeu on joue, utilisez-les
 dans les scènes et sur le tableau de bord.
 
+Nécessite **Gladys 5.3.0 ou plus récent**.
+
 ## Deux canaux
 
 | Canal                    | Il faut             | Ce qu'il fait                                                                                                          |
